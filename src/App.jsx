@@ -1,14 +1,37 @@
+import { useState, useEffect, useDispatch } from 'react'
 import './App.css'
+import authService from './appwrite/auth'
+import {login, logout} from "./features/authSlice"
+import {Header, Footer} from "./components/index"
+
 
 function App() {
- console.log(import.meta.env.VITE_APPWRITE_URL);
- 
+  const[loading, setLoading] = useState(true)
+  const dispatch = useDispatch();
 
-  return (
-    <>
-     <h1>a Mega Project With Appwrite and React</h1>
-    </>
-  )
+  useEffect(() => {
+    authService.getCurrentUser()
+    .then((userData) => {
+        if(userData){
+          dispatch(login({userData}))
+        }else{
+          dispatch(logout())
+        }
+    })
+    .finally(() => setLoading(false))
+  },[])
+
+ return !loading ? (
+  <div className='min-h-screen flex flex-wrap content-between '>
+    <div className='w-full block'> 
+      <Header /> 
+      <main>
+         {/* <outlet />  */}
+      </main>
+      <Footer />
+    </div>
+  </div>
+ ) : null
 }
 
 export default App
