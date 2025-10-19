@@ -9,8 +9,8 @@ const Input = React.forwardRef( function Input({  // using forwardRef to pass re
      const id = useId()
     return( 
         <div className='w-full'>
-            {label && <label // if label exists, render label element 
-            htmlFor={id}  // associate label with input using id
+            {label && <label              // if label exists, render label element 
+            htmlFor={id}                  // associate label with input using id
             className='block text-gray-700 font-medium mb-2'>
                 {label}
             </label>
