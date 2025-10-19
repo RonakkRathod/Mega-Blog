@@ -11,7 +11,7 @@ function LogoutBtn() {
     const logoutHandler =( ) => {
         authService.logout()
         .then(() => {
-            dispatch(logout())
+            dispatch(logout()) // tell redux to delete user info from store
         })
         .catch((err) => {
             console.log("error at logoutHandler :: LogoutBtn",err);
