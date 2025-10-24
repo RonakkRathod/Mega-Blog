@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
-import appwriteService from "../../appwrite/database"
-import {Container, PostCard} from "../index"
+import appwriteService from "../appwrite/database"
+import {Container, PostCard} from "../components/index"
 
 
 function AllPosts() {
