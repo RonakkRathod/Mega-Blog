@@ -2,7 +2,7 @@ import Home from "./Home"
 import AllPosts from "./AllPosts"
 import EditPost from "./EditPost"
 import AddPost from "./AddPost"
-import Login from "./Login"
+import login from "./Login"
 import Post from "./Post"
 import SignUp from "./SignUp"
 
@@ -11,7 +11,7 @@ export {
     AllPosts,
     EditPost,
     AddPost,
-    Login,
+    login,
     Post,
     SignUp
 }

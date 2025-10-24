@@ -5,6 +5,7 @@ import Button from "./Button"
 import Logo from "./Logo";
 import LogoutBtn from "./Header/LogoutBtn";
 import RTE from "./RTE"
+import Input from "./Input"
 import Signup from "./Signup";
 import Login from "./Login"
 import PostForm from "./post-form/PostForm";
@@ -19,6 +20,7 @@ export{
     Logo,
     LogoutBtn,
     RTE,
+    Input,
     Signup,
     Login,
     PostForm,
