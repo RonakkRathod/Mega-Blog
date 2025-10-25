@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Link ,useNavigate} from 'react-router-dom'
 import {login as authLogin} from '../features/authSlice'
-import {Button,Input,Logo} from './index'
+import {Button,Input,Logo,Select} from './index'
 import authService from '../appwrite/auth'
 import {useDispatch} from 'react-redux'
 import { useForm} from 'react-hook-form'
@@ -25,7 +25,7 @@ function Login() {
         } catch (error) {
             setError(error.message)
         }
-  }
+    }
     return (
     <div
      className='flex items-center justify-center w-full'
@@ -45,8 +45,8 @@ function Login() {
                     >
                         Sign Up
                     </Link>
-                </p>  // showing the error message if login fails
-                {error && <P className="text-red-600 mt-8 text-center">{error}</P>}
+                </p> 
+                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
                 <form onSubmit={handleSubmit(login)} className='mt-8'>
                     <div className='space-y-5'>
                         <Input
