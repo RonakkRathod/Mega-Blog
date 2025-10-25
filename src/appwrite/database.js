@@ -86,12 +86,11 @@ export class Service{
         try {
             return await this.databases.listDocuments({
                 databaseId : conf.appwriteDatabaseId,
-                dbCollectionId : conf.appwriteCollectionId,
+                collectionId : conf.appwriteCollectionId,
                 queries
             })
         } catch (error) {
             console.log("error at getPosts ",error);
-            
         }
     }
 

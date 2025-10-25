@@ -15,23 +15,32 @@ export class AuthService {
     
     async createAccount({email,password,name}) { // Required fields
         try {
-            const userAccount = await this.account.create( ID.unique(), email, password, name );
+            const userAccount = await this.account.create({ 
+                userId : ID.unique(), 
+                email :email,
+                password:  password,
+                name:  name,
+             });
 
             if (userAccount) {
+                  await this.account.createEmailPasswordSession({email, password});
                  // call another method for login
                  return this.login({email, password})
             } else {
                 return userAccount;
             }
         } catch (error) {
+            console.log("appwrite signup error",error); 
             throw error;
         }
     }
 
     async login({email , password}){
         try {
-            return await this.account.createEmailSession(email, password);
+             return await this.account.createEmailPasswordSession({email, password});
         } catch (error) {
+            console.log("appwrite login error",error);
+            
             throw error;
         }
     }
@@ -41,10 +50,9 @@ export class AuthService {
             return await this.account.get();
         } catch (error) {
             console.log("Appwrite service :: getCurrentUSer");
-            throw error;
+           return null;
         }
-
-        return null;
+       
     }
 
     async logout() {
