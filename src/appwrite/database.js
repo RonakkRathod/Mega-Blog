@@ -19,7 +19,7 @@ export class Service{
         try {
             return await this.databases.createDocument({ // modern synrtax of appwrite to use key-value pair
                 databaseId : conf.appwriteDatabaseId,
-                dbCollectionId : conf.appwriteCollectionId,
+                collectionId : conf.appwriteCollectionId,
                 documentId : slug,
                 data :{
                     title,
