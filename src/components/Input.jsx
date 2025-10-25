@@ -2,7 +2,7 @@ import React,{useId} from 'react'
 
 const Input = React.forwardRef( function Input({  // using forwardRef to pass ref to input element
     label,
-    type = 'text',
+    type = '',
     className = '',
     ...props
 }, ref){
@@ -16,11 +16,11 @@ const Input = React.forwardRef( function Input({  // using forwardRef to pass re
             </label>
             }
             <input 
-            type="text"
+            type={type} // it overrides any type in props
             className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full ${className} `}
             ref={ref} // forwarding the ref to the input element
-            {...props}
             id={id}
+             {...props} 
              />
         </div>
     )
