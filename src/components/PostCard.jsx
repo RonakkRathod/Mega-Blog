@@ -8,8 +8,7 @@ function PostCard({
     title,
     featuredImage
 }) {
-  return 
-  (
+  return  (
    <Link to={`/post/${$id}`}>
         <div className='w-full bg-gray-200 rounded-xl p-4'>
             <div className='w-full justify-center mb-4'>
@@ -22,6 +21,7 @@ function PostCard({
         </div>
    </Link>
   )
+ 
 }
 
 

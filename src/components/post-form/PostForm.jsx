@@ -1,6 +1,6 @@
 import React,{useCallback, useEffect} from 'react'
 import {useForm} from 'react-hook-form'
-import {Button,Input,RTE} from '../index'
+import {Button,Input,RTE,Select} from '../index'
 import appwriteService from "../../appwrite/database"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -16,8 +16,8 @@ function PostForm({post}) {
         }
     });
 
-    const navigate =useNavigate()
-    const userData = useSelector(state=>state.auth.userData)
+    const navigate = useNavigate()
+    const userData = useSelector(state => state.auth.userData)
 
     // submit form handler for create or update post
     const submit = async(data) => {
