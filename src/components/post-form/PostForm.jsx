@@ -17,10 +17,11 @@ function PostForm({post}) {
     });
 
     const navigate = useNavigate()
-    const userData = useSelector(state => state.auth.userData)
-
+    const userData = useSelector((state) => state.auth.userData)
+ 
     // submit form handler for create or update post
     const submit = async(data) => {
+
         if (post) {   // update existing post
             const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null; 
 
@@ -36,13 +37,13 @@ function PostForm({post}) {
             if (updatePost) {
                 navigate(`/posts/${updatePost.$id}`)
             }
-
         } else { // create new post
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
             if (file) {
                 const fileId = file.$id
                 data.featuredImage = fileId
+                
                const dbPost =  await appwriteService.createPost({
                     ...data,
                     userId: userData.$id, // associate post with user
@@ -51,22 +52,24 @@ function PostForm({post}) {
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`)
                 }
-
             }
         }
     }
 
 
     const slugTransform = useCallback((value) => {
-        if(value && typeof value === 'string' ) 
-            return value
-            .trim()
-            .toLowerCase()
-            .replace(/^[a-zA-Z\d\s]+/g, '-') // replace special characters
-            .replace(/\s/g, '-') // replace spaces with hyphens
-        
-         return ''
-    }, [])
+    if (value && typeof value === 'string')
+        return value
+        .trim()
+        .toLowerCase()
+        // remove characters that are NOT letters, digits, spaces, dot, hyphen or underscore
+        .replace(/[^a-z0-9\s\.\-_]/g, '')
+        // then convert spaces to hyphens
+        .replace(/\s+/g, '-');
+
+    return '';
+    }, []);
+
 
     useEffect(() => {
         const subscription = watch((value, {name}) => {

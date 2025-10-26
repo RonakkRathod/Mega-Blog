@@ -16,29 +16,30 @@ export class Service{
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}){
-        try {
-            return await this.databases.createDocument({ // modern synrtax of appwrite to use key-value pair
-                databaseId : conf.appwriteDatabaseId,
-                collectionId : conf.appwriteCollectionId,
-                documentId : slug,
-                data :{
+          try {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                slug,
+                {
                     title,
                     content,
                     featuredImage,
                     status,
                     userId,
                 }
-            })
+            )
+              console.log("data:", data); // Log the data object
         } catch (error) {
-            console.log("error at createPost",error);
+            console.log("error at createPost", error);
         }
-    }
+    } 
 
     async updatePost(slug, {title, content, featuredImage, status,}){
         try {
             return await this.databases.updateDocument({
                 databaseId : conf.appwriteDatabaseId,
-                dbCollectionId : conf.appwriteCollectionId,
+                collectionId : conf.appwriteCollectionId,
                 documentId : slug,
                 data : {
                     title,
@@ -57,7 +58,7 @@ export class Service{
         try {
             await this.databases.deleteDocument({
                 databaseId : conf.appwriteDatabaseId,
-                dbCollectionId : conf.appwriteCollectionId,
+                collectionId : conf.appwriteCollectionId,
                 documentId :slug  
             })
             return true;
@@ -72,7 +73,7 @@ export class Service{
         try {
             return await this.databases.getDocument({
                 databaseId : conf.appwriteDatabaseId,
-                dbCollectionId : conf.appwriteCollectionId,
+                collectionId : conf.appwriteCollectionId,
                 documentId : slug   
             })
         } catch (error) {
@@ -84,11 +85,11 @@ export class Service{
     // get all post conditionally whos status is active 
     async getPosts(queries = [Query.equal("status","active")]){
         try {
-            return await this.databases.listDocuments({
-                databaseId : conf.appwriteDatabaseId,
-                collectionId : conf.appwriteCollectionId,
+            return await this.databases.listDocuments(
+                 conf.appwriteDatabaseId,
+                 conf.appwriteCollectionId,
                 queries
-            })
+            )
         } catch (error) {
             console.log("error at getPosts ",error);
         }
@@ -107,7 +108,6 @@ export class Service{
         } catch (error) {
             console.log("error at uploadFile",error);
             return false;
-            
         }
     }
 
@@ -123,13 +123,18 @@ export class Service{
         }
     }
 
-    getFilePreview(fileId){
-        return this.bucket.getFilePreview({
-            bucketId: conf.appwriteBucketId,
-            fileId
-        })
+    getFilePreview(fileId) {
+        return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     }
 
+    getFileView(fileId) {
+        return this.bucket.getFileView({
+            bucketId: conf.appwriteBucketId, 
+            fileId: fileId,
+            width: "30px",
+            height: "30px",
+        });
+    }
 }
 
 const service = new Service();
